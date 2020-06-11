@@ -7,13 +7,30 @@ import Header from '../components/Header/Index';
 import Author from '../components/Author/Index';
 import Advert from '../components/Advert/Index';
 import Footer from '../components/Footer/Index';
-import '../static/style/pages/index.css';
+import servicePath from '../config/apiUrl';
 import axios from 'axios';
+import marked from 'marked';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/monokai-sublime.css';
+import '../static/style/pages/index.css';
 
 const Home = (list) => {
 
-  const [myList, setMyList] = useState(list.list)
+  const [myList, setMyList] = useState(list.data)
+  const renderer = new marked.Renderer();
 
+  marked.setOptions({
+    renderer:renderer,
+    gfm:true,
+    pedantic:false,
+    sanitize:false,
+    tables:true,
+    breaks:false,
+    smartLists:true,
+    highlight:function (code) {
+      return hljs.highlightAuto(code).value
+    }
+  })
   return (
     <>
       <Head>
@@ -38,7 +55,9 @@ const Home = (list) => {
                   <span><FolderOutlined />{item.typeName}</span>
                   <span><FireOutlined />{item.view_count}</span>
                 </div>
-                <div className="list-context">{item.introduce}</div>
+                <div className="list-context"
+                  dangerouslySetInnerHTML={{__html:marked(item.introduce)}}
+                ></div>
               </List.Item>
             )}
           />
@@ -55,9 +74,8 @@ const Home = (list) => {
 
 Home.getInitialProps = async () => {
   const promise = new Promise((resolve) => {
-    axios('http://localhost:7001/default/getArticleList').then(
-      (res) => {
-        console.log(res.data)
+    axios(servicePath.getArticleList).then(
+      (res) => {     
         resolve(res.data)
       }
     )
