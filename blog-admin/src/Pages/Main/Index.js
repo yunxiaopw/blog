@@ -7,7 +7,7 @@ const Index = () => {
     return (
         <Router>
             <Route path="/" exact component={Login} />
-            <Route path="/admin/index" exact component={AdminIndex} />
+            <Route path="/admin/index/" component={AdminIndex} />
         </Router>
     )
 }

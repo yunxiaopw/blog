@@ -35,24 +35,32 @@ const Index = () => {
     return (
         <div className="header">
             <Row type="flex" justify="center">
-                <Col xs={24} sm={24} md={10} lg={15} xl={12}>
-                    <span className="header-logo">程序攀</span>
-                    <span className="header-txt">车轮滚滚向前</span>
+                <Col xs={24} sm={24} md={10} lg={15} xl={10}>
+                    <span className="header-logo">CoderPan</span>
+                    <span className="header-txt">时代车轮滚滚向前...</span>
                 </Col>
-                <Col xs={0} sm={0} md={14} lg={8} xl={6}>
+                <Col xs={0} sm={0} md={14} lg={8} xl={9}>
                     <Menu mode="horizontal" defaultSelectedKeys={key} onClick={handleClick}>
                         <Menu.Item key="0">
                             <HomeOutlined />
                             博客首页
                         </Menu.Item>
                         <Menu.Item key="1">
-                            <VideoCameraOutlined />
-                            视频教程
+                           <SmileOutlined />
+                            React
                         </Menu.Item>
                         <Menu.Item key="2">
                             <SmileOutlined />
-                            生活拍档
-                    </Menu.Item>
+                            Javascript
+                        </Menu.Item>                        
+                        <Menu.Item key="3">
+                            <SmileOutlined />
+                            NodeJs
+                        </Menu.Item>
+                        <Menu.Item key="4">
+                            <SmileOutlined />
+                            Css
+                        </Menu.Item>
                     </Menu>
                 </Col>
             </Row>

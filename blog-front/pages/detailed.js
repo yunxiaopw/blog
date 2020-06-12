@@ -54,7 +54,7 @@ const Detailed = (props) => {
             <div className="bread-div">
               <Breadcrumb>
                 <Breadcrumb.Item><a href="/">首页</a></Breadcrumb.Item>
-                <Breadcrumb.Item><a href="/">视频列表</a></Breadcrumb.Item>
+                <Breadcrumb.Item><a href="/">react</a></Breadcrumb.Item>
                 <Breadcrumb.Item><a href="/">xxx</a></Breadcrumb.Item>
               </Breadcrumb>
             </div>

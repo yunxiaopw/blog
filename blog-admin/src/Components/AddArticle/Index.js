@@ -23,6 +23,12 @@ const Index = (props) => {
 
     useEffect(() => {
         getTypeInfo()
+        // 获取文章id
+        let tmpId = props.match.params.id;   
+        if(tmpId){
+            setArticleId(tmpId)
+            getArticleById(tmpId)
+        }
     }, [])
 
     marked.setOptions({
@@ -114,13 +120,45 @@ const Index = (props) => {
                 res => {
                     setArticleId(res.data.insertId)
                     if (res.data.isSuccess) {
-                        message.success('文章保存成功')
+                        message.success('文章添加成功')
                     } else {
-                        message.error('文章保存失败')
+                        message.error('文章添加失败')
+                    }
+                }
+            )
+        } else {
+            dataProps.id = articleId
+            axios({
+                method: 'post',
+                url: servicePath.updateArticle,
+                data: dataProps,
+                withCredentials: true
+            }).then(
+                res => {
+                    if (res.data.isSuccess) {
+                        message.success('文章修改成功')
+                    } else {
+                        message.error('文字修改失败')
                     }
                 }
             )
         }
+    }
+
+    const getArticleById = (id) => {
+        axios(servicePath.getArticleById + id, { withCredentials: true }).then(
+            res => {
+                setArticleTitle(res.data.data[0].title)
+                setArticleContent(res.data.data[0].article_content)
+                let html = marked(res.data.data[0].article_content)
+                setMarkdownContent(html)
+                setIntroduceMd(res.data.data[0].introduce)
+                let tmpInt = marked(res.data.data[0].introduce)
+                setIntroduceHtml(tmpInt)
+                setShowDate(res.data.data[0].addTime)
+                setSelectType(res.data.data[0].typeId)
+            }
+        )
     }
 
     return (
@@ -174,6 +212,7 @@ const Index = (props) => {
                         <Col span={24}>
                             <TextArea
                                 rows="4"
+                                value={introduceMd}
                                 placeholder="文章简介"
                                 onChange={changeIntroduce}
                             >
